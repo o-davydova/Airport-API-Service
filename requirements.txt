@@ -10,3 +10,7 @@ platformdirs==4.0.0
 psycopg2-binary==2.9.9
 sqlparse==0.4.4
 tzdata==2023.3
+flake8==5.0.4
+flake8-quotes==3.3.1
+flake8-variables-names==0.0.5
+pep8-naming==0.13.2
