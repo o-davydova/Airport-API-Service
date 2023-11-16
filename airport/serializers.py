@@ -1,6 +1,11 @@
 from rest_framework import serializers
 
-from airport.models import AirplaneType, Airplane, Crew
+from airport.models import (
+    AirplaneType,
+    Airplane,
+    Crew,
+    Country
+)
 
 
 class AirplaneTypeSerializer(serializers.ModelSerializer):
@@ -28,4 +33,10 @@ class AirplaneDetailSerializer(AirplaneSerializer):
 class CrewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Crew
+        fields = "__all__"
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
         fields = "__all__"
