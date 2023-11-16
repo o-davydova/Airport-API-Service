@@ -3,7 +3,9 @@ from rest_framework import viewsets, mixins
 from airport.models import AirplaneType, Airplane
 from airport.serializers import (
     AirplaneTypeSerializer,
-    AirplaneSerializer
+    AirplaneSerializer,
+    AirplaneDetailSerializer,
+    AirplaneListSerializer
 )
 
 
@@ -19,10 +21,10 @@ class AirplaneTypeViewSet(
 class AirplaneViewSet(
     viewsets.GenericViewSet,
     mixins.CreateModelMixin,
-    mixins.ListModelMixin
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
 ):
     queryset = Airplane.objects.prefetch_related("airplane_type")
-    serializer_class = AirplaneSerializer
 
     @staticmethod
     def _params_to_ints(qs):
@@ -40,3 +42,12 @@ class AirplaneViewSet(
             queryset = queryset.filter(airplane_type__id__in=airplane_types_ids)
 
         return queryset.distinct()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return AirplaneListSerializer
+
+        if self.action == "retrieve":
+            return AirplaneDetailSerializer
+
+        return AirplaneSerializer
