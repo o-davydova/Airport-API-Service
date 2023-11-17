@@ -3,7 +3,17 @@ from rest_framework import viewsets, mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 
-from airport.models import AirplaneType, Airplane, Crew, Country, City, Airport, Route, Flight, Order
+from airport.models import (
+    AirplaneType,
+    Airplane,
+    Crew,
+    Country,
+    City,
+    Airport,
+    Route,
+    Flight,
+    Order
+)
 from airport.serializers import (
     AirplaneTypeSerializer,
     AirplaneSerializer,
@@ -56,7 +66,9 @@ class AirplaneViewSet(
 
         if airplane_types:
             airplane_types_ids = self._params_to_ints(airplane_types)
-            queryset = queryset.filter(airplane_type__id__in=airplane_types_ids)
+            queryset = queryset.filter(
+                airplane_type__id__in=airplane_types_ids
+            )
 
         return queryset.distinct()
 
@@ -123,7 +135,9 @@ class AirportViewSet(
 
         if closest_big_cities:
             closest_big_cities_ids = self._params_to_ints(closest_big_cities)
-            queryset = queryset.filter(closest_big_city__id__in=closest_big_cities_ids)
+            queryset = queryset.filter(
+                closest_big_city__id__in=closest_big_cities_ids
+            )
 
         return queryset.distinct()
 
